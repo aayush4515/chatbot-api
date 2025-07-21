@@ -22,7 +22,7 @@ class PromptRequest(BaseModel):
 async def handle_prompt(request: PromptRequest):
     try:
         response = openai.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="chatgpt-4o-latest",
             messages=[
                 {
                     "role": "system",
