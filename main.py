@@ -54,6 +54,7 @@ async def handle_prompt(request: PromptRequest):
                             - Format all responses with proper vertical spacing:
                             - Add a blank line between paragraphs
                             - Use line breaks after bullet points, examples, and analogies
+                            - Use at 4 line breaks (\n) before and after the horizontal lines (---)
                             - Ensure code blocks are separated by blank lines before and after
                             - Keep formatting clean and easy to read, like a well-structured ChatGPT answer
 
