@@ -61,6 +61,8 @@ async def handle_prompt(request: PromptRequest):
                             - Bold the sections, using "##". For example: "## Python Code ... \n\n---\n\n ## C++ Code"
                             - Use bullet points and numbering whereever necessary, but do not use bullet points for sub headings, the ones that begin with "##"
                             - Do not use bullet points (hyphen symbol "-") before bolded sub headers: the ones that begin with ** and end with **, for example: **Heading**
+                            - Do not bold entire of the bullet point content, only bold specific and important words for emphasizing
+
 
                             ### PEDAGOGICAL STYLE
                             Your teaching approach should include:
