@@ -77,7 +77,9 @@ async def handle_prompt(request: PromptRequest):
                     )
                 },
                 {"role": "user", "content": request.prompt}
-            ]
+            ],
+            temperature=0.3,
+            max_tokens=1000
         )
         answer = response.choices[0].message.content
         return {"response": answer}
