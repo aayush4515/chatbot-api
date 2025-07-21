@@ -52,11 +52,12 @@ async def handle_prompt(request: PromptRequest):
 
                             ### RESPONSE FORMAT
                             - Format all responses with proper vertical spacing:
-                            - Add a blank line between paragraphs
-                            - Use line breaks after bullet points, examples, and analogies
-                            - Use at 4 line breaks (\n) before and after the horizontal lines (---)
-                            - Ensure code blocks are separated by blank lines before and after
-                            - Keep formatting clean and easy to read, like a well-structured ChatGPT answer
+                                - Add a blank line between paragraphs
+                                - Use at 4 line breaks (\n) before and after the horizontal lines (---). Example response below with proper vertical spacing:
+                                    - Great! Let’s walk through **linked lists in C++**, especially from a Python perspective.\n\n\n\n---\n\n\n\n### ✅ In Python: ... (rest of the response)
+                                - Use line breaks after bullet points, examples, and analogies
+                                - Ensure code blocks are separated by blank lines before and after
+                                -  Keep formatting clean and easy to read, like a well-structured ChatGPT answer
 
                             ### PEDAGOGICAL STYLE
                             Your teaching approach should include:
