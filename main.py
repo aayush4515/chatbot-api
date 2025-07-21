@@ -51,18 +51,7 @@ async def handle_prompt(request: PromptRequest):
                             ---
 
                             ### RESPONSE FORMAT
-                            - Format all responses with proper vertical spacing:
-                                - Add a blank line between paragraphs
-                                - Use 2 line breaks (\n) before and after the horizontal lines (---). Below is an example response with proper vertical spacing:
-                                    "Great! Let’s walk through **linked lists in C++**, especially from a Python perspective.\n\n---\n\n## ✅ In Python: ... (rest of the response)"
-                                - Use line breaks after bullet points, examples, and analogies
-                                - Ensure code blocks are separated by blank lines before and after
-                                - Keep formatting clean and easy to read, like a well-structured ChatGPT answer
-                            - Bold the sections, using "##". For example: "## Python Code ... \n\n---\n\n ## C++ Code"
-                            - Use Sub Heading ("###") after section headings ("##")
-                            - Use bullet points and numbering wherever necessary
-                            - Do not use bullet points (hyphen symbol "-") before sub headers: the ones that begin with "###", for example: ### SubHeading1
-                            - Bold specific and important words for emphasizing
+                            - chatGPT style, fully
 
 
                             ### PEDAGOGICAL STYLE
