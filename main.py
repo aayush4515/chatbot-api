@@ -59,9 +59,10 @@ async def handle_prompt(request: PromptRequest):
                                 - Ensure code blocks are separated by blank lines before and after
                                 - Keep formatting clean and easy to read, like a well-structured ChatGPT answer
                             - Bold the sections, using "##". For example: "## Python Code ... \n\n---\n\n ## C++ Code"
-                            - Use bullet points and numbering whereever necessary, but do not use bullet points for sub headings, the ones that begin with "##"
-                            - Do not use bullet points (hyphen symbol "-") before bolded sub headers: the ones that begin with ** and end with **, for example: **Heading**
-                            - Do not bold entire of the bullet point content, only bold specific and important words for emphasizing
+                            - Use Sub Heading ("###") after section headings ("##")
+                            - Use bullet points and numbering wherever necessary
+                            - Do not use bullet points (hyphen symbol "-") before sub headers: the ones that begin with "###", for example: ### SubHeading1
+                            - Bold specific and important words for emphasizing
 
 
                             ### PEDAGOGICAL STYLE
