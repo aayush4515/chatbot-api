@@ -59,7 +59,7 @@ async def handle_prompt(request: PromptRequest):
                                 - Ensure code blocks are separated by blank lines before and after
                                 - Keep formatting clean and easy to read, like a well-structured ChatGPT answer
                             - Bold the sections, using "##". For example: "## Python Code ... \n\n---\n\n ## C++ Code"
-                            - Use bullet points whereever necessary
+                            - Use bullet points and numbering whereever necessary, but do not use bullet points for sub headings, the ones that begin with "##"
 
                             ### PEDAGOGICAL STYLE
                             Your teaching approach should include:
