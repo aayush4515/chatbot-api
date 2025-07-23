@@ -147,22 +147,22 @@ async def handle_file_upload(file: UploadFile = File(...), user_prompt: str = Fo
         # read file content
         file_content = (await file.read()).decode("UTF-8")
 
-        # build instructional prompt
-        language = "Python" if extension == ".py" else "C++"
+        # # build instructional prompt
+        # language = "Python" if extension == ".py" else "C++"
 
-        # include the user's prompt + file content
-        combined_prompt = (
-            f"The student has uploaded a {language} file. Below is the code:\n\n"
-            f"```{language.lower()}\n{file_content}\n```\n\n"
-            f"The student asked: {user_prompt}"
-        )
+        # # include the user's prompt + file content
+        # combined_prompt = (
+        #     f"The student has uploaded a {language} file. Below is the code:\n\n"
+        #     f"```{language.lower()}\n{file_content}\n```\n\n"
+        #     f"The student asked: {user_prompt}"
+        # )
 
         # generate response
         response = openai.chat.completions.create(
             model="chatgpt-4o-latest",
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": combined_prompt}
+                {"role": "user", "content": user_prompt}
             ],
             temperature=0.3,
             max_tokens=1000
