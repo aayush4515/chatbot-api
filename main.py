@@ -1,33 +1,15 @@
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Request
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import openai
 import os
 from dotenv import load_dotenv
 
-# load dotenv to connect api key from .env file
-load_dotenv()
+# accepted extensions for file uploads
+ACCEPTED_EXTENSIONS = {".py", ".cpp"}
 
-# retrieve the api key stored in .env under OPENAI_API_KEy
-openai.api_key = os.getenv("OPENAI_API_KEY")
-
-# create an instance of FastAPI application called app
-app = FastAPI()
-
-# request body schema
-class PromptRequest(BaseModel):
-    prompt: str
-
-# API endpoint
-@app.post("/ask")
-async def handle_prompt(request: PromptRequest):
-    try:
-        response = openai.chat.completions.create(
-            model="chatgpt-4o-latest",
-            messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        '''### ROLE AND PURPOSE
+# system prompt
+SYSTEM_PROMPT = '''### ROLE AND PURPOSE
                             You are a tutoring assistant designed to help university students who already understand Python transition to learning C++. Your mission is to:
                             - Clarify core language differences
                             - Promote deep conceptual understanding
@@ -52,7 +34,6 @@ async def handle_prompt(request: PromptRequest):
 
                             ### RESPONSE FORMAT
                             - chatGPT style, fully
-
 
                             ### PEDAGOGICAL STYLE
                             Your teaching approach should include:
@@ -115,7 +96,30 @@ async def handle_prompt(request: PromptRequest):
                             ### IN SUMMARY
                             You are a supportive and concept-driven tutoring assistant who helps Python learners transition to C++ by explaining syntax and logic differences with analogies, partial code, and guided reasoning — without giving full solutions.
                             '''
-                    )
+
+# load dotenv to connect api key from .env file
+load_dotenv()
+
+# retrieve the api key stored in .env under OPENAI_API_KEy
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# create an instance of FastAPI application called app
+app = FastAPI()
+
+# request body schema
+class PromptRequest(BaseModel):
+    prompt: str
+
+# API endpoint /ask
+@app.post("/ask")
+async def handle_prompt(request: PromptRequest):
+    try:
+        response = openai.chat.completions.create(
+            model="chatgpt-4o-latest",
+            messages=[
+                {
+                    "role": "system",
+                    "content": SYSTEM_PROMPT
                 },
                 {"role": "user", "content": request.prompt}
             ],
@@ -126,3 +130,45 @@ async def handle_prompt(request: PromptRequest):
         return {"response": answer}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# API endpoint /upload: handles file uploads
+@app.post("upload")
+async def handle_file_upload(file: UploadFile = File(...), user_prompt: str = Form(...)):
+    # get filename and extension
+    filename = file.filename
+    extension = filename[filename.rfind("."):].lower()
+
+    # raise exception if unsupported file is uploaded
+    if extension not in ACCEPTED_EXTENSIONS:
+        raise HTTPException(status_code=400, detail="Unsupported file type. Only .py and .cpp files are allowed.")
+
+    try:
+        # read file content
+        file_content = (await file.read()).decode("UTF-8")
+
+        # build instructional prompt
+        language = "Python" if extension == ".py" else "C++"
+
+        # include the user's prompt + file content
+        combined_prompt = (
+            f"The student has uploaded a {language} file. Below is the code:\n\n"
+            f"```{language.lower()}\n{file_content}\n```\n\n"
+            f"The student asked: {user_prompt}"
+        )
+
+        # generate response
+        response = openai.chat.completions.create(
+            model="chatgpt-4o-latest",
+            messages=[
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": combined_prompt}
+            ],
+            temperature=0.3,
+            max_tokens=1000
+        )
+        answer = response.choices[0].message.content
+        return {"response": answer}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
