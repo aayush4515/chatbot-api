@@ -150,7 +150,7 @@ async def handle_file_upload(file: UploadFile = File(...), user_prompt: str = Fo
         # build instructional prompt
         language = "Python" if extension == ".py" else "C++"
 
-        prompt = "Perform static analysis on the given code." if user_prompt == "" else prompt = user_prompt
+        prompt = "Perform static analysis on the given code." if user_prompt == "" else user_prompt
 
         # include the user's prompt + file content
         combined_prompt = (
