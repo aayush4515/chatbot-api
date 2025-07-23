@@ -133,7 +133,7 @@ async def handle_prompt(request: PromptRequest):
 
 
 # API endpoint /upload: handles file uploads
-@app.post("upload")
+@app.post("/upload")
 async def handle_file_upload(file: UploadFile = File(...), user_prompt: str = Form(...)):
     # get filename and extension
     filename = file.filename
