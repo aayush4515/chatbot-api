@@ -16,7 +16,7 @@ This is the backend API for the **Python-to-C++ Tutor Chatbot**, a FastAPI-power
 
 ## 📦 Tech Stack
 
-- **Python 3.10+**
+- **Python+**
 - **FastAPI**
 - **Uvicorn**
 - **OpenAI Python SDK**

@@ -124,7 +124,7 @@ async def handle_prompt(request: PromptRequest):
                 {"role": "user", "content": request.prompt}
             ],
             temperature=0.3,
-            max_tokens=1000
+            max_tokens=1500
         )
         answer = response.choices[0].message.content
         return {"response": answer}
@@ -167,7 +167,7 @@ async def handle_file_upload(file: UploadFile = File(...), user_prompt: str = Fo
                 {"role": "user", "content": combined_prompt}
             ],
             temperature=0.3,
-            max_tokens=1000
+            max_tokens=1500
         )
         answer = response.choices[0].message.content
         return {"response": answer}
