@@ -1,9 +1,12 @@
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-import openai
+from openai import OpenAI
 import os
 from dotenv import load_dotenv
+
+# create a new client
+client = OpenAI()
 
 # accepted extensions for file uploads
 ACCEPTED_EXTENSIONS = {".py", ".cpp"}
@@ -101,7 +104,7 @@ SYSTEM_PROMPT = '''### ROLE AND PURPOSE
 load_dotenv()
 
 # retrieve the api key stored in .env under OPENAI_API_KEy
-openai.api_key = os.getenv("OPENAI_API_KEY")
+client.api_key = os.getenv("OPENAI_API_KEY")
 
 # create an instance of FastAPI application called app
 app = FastAPI()
@@ -114,8 +117,8 @@ class PromptRequest(BaseModel):
 @app.post("/ask")
 async def handle_prompt(request: PromptRequest):
     try:
-        response = openai.chat.completions.create(
-            model="gpt-5-2025-08-07",
+        response = client.completions.create(
+            model="gpt-5",
             messages=[
                 {
                     "role": "system",
@@ -160,7 +163,7 @@ async def handle_file_upload(file: UploadFile = File(...), user_prompt: str = Fo
         )
 
         # generate response
-        response = openai.chat.completions.create(
+        response = client.completions.create(
             #model="chatgpt-4o-latest",
             model="gpt-4.1",
             messages=[
