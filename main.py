@@ -168,7 +168,7 @@ async def handle_file_upload(file: UploadFile = File(...), user_prompt: str = Fo
                 {"role": "user", "content": combined_prompt}
             ],
             temperature=0.3,
-            verbosity="medium"
+            verbosity="high"
             #max_tokens=1500
         )
         answer = response.choices[0].message.content
