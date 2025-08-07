@@ -115,7 +115,7 @@ class PromptRequest(BaseModel):
 async def handle_prompt(request: PromptRequest):
     try:
         response = openai.chat.completions.create(
-            model="gpt-5",
+            model="gpt-4.1"
             messages=[
                 {
                     "role": "system",
@@ -124,7 +124,7 @@ async def handle_prompt(request: PromptRequest):
                 {"role": "user", "content": request.prompt}
             ],
             temperature=0.3,
-            verbosity="high"
+            max_tokens=1500
         )
         answer = response.choices[0].message.content
         return {"response": answer}
@@ -162,14 +162,13 @@ async def handle_file_upload(file: UploadFile = File(...), user_prompt: str = Fo
         # generate response
         response = openai.chat.completions.create(
             #model="chatgpt-4o-latest",
-            model="gpt-5",
+            model="gpt-4.1",
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": combined_prompt}
             ],
             temperature=0.3,
-            verbosity="high"
-            #max_tokens=1500
+            max_tokens=1500
         )
         answer = response.choices[0].message.content
         return {"response": answer}
