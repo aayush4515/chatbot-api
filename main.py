@@ -115,7 +115,7 @@ class PromptRequest(BaseModel):
 async def handle_prompt(request: PromptRequest):
     try:
         response = openai.chat.completions.create(
-            model="chatgpt-4o-latest",
+            model="gpt-5",
             messages=[
                 {
                     "role": "system",
@@ -124,7 +124,7 @@ async def handle_prompt(request: PromptRequest):
                 {"role": "user", "content": request.prompt}
             ],
             temperature=0.3,
-            max_tokens=1500
+            verbosity="high"
         )
         answer = response.choices[0].message.content
         return {"response": answer}
