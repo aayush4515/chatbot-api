@@ -119,7 +119,7 @@ class PromptRequest(BaseModel):
 async def handle_prompt(request: PromptRequest):
     try:
         response = client.chat.completions.create(
-            model="gpt-4.1",
+            model="gpt-5",
             messages=[
                 {
                     "role": "system",
@@ -127,8 +127,8 @@ async def handle_prompt(request: PromptRequest):
                 },
                 {"role": "user", "content": request.prompt}
             ],
-            temperature=0.3,
-            max_tokens=1500,
+            # temperature=0.3,
+            # max_tokens=1500,
         )
         # answer = response.choices[0].message.content
         answer = response.choices[0].message.content
