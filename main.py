@@ -118,15 +118,17 @@ class PromptRequest(BaseModel):
 @app.post("/ask")
 async def handle_prompt(request: PromptRequest):
     try:
-        response = client.responses.create(
-            model="gpt-5",
-            input=[
+        response = client.chat.completions.create(
+            model="gpt-4.1",
+            messages=[
                 {
                     "role": "system",
                     "content": SYSTEM_PROMPT
                 },
                 {"role": "user", "content": request.prompt}
             ],
+            temperature=0.3,
+            max_tokens=1500,
         )
         # answer = response.choices[0].message.content
         answer = response.output_text
@@ -163,13 +165,15 @@ async def handle_file_upload(file: UploadFile = File(...), user_prompt: str = Fo
         )
 
         # generate response
-        response = client.responses.create(
+        response = client.chat.completions.create(
             #model="chatgpt-4o-latest",
             model="gpt-4.1",
-            input=[
+            messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": combined_prompt}
             ],
+            temperature=0.3,
+            max_tokens=1500
         )
         # answer = response.choices[0].message.content
         answer = response.output_text
