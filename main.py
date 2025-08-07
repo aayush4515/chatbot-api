@@ -127,8 +127,8 @@ async def handle_prompt(request: PromptRequest):
                 },
                 {"role": "user", "content": request.prompt}
             ],
+            max_tokens=1500,
             # temperature=0.3,
-            # max_tokens=1500,
         )
         # answer = response.choices[0].message.content
         answer = response.choices[0].message.content
