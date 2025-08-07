@@ -131,7 +131,7 @@ async def handle_prompt(request: PromptRequest):
             max_tokens=1500,
         )
         # answer = response.choices[0].message.content
-        answer = response.output_text
+        answer = response.choices[0].message.content
         return {"response": answer}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -175,8 +175,7 @@ async def handle_file_upload(file: UploadFile = File(...), user_prompt: str = Fo
             temperature=0.3,
             max_tokens=1500
         )
-        # answer = response.choices[0].message.content
-        answer = response.output_text
+        answer = response.choices[0].message.content
         return {"response": answer}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
