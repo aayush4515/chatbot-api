@@ -128,7 +128,6 @@ async def handle_prompt(request: PromptRequest):
                 {"role": "user", "content": request.prompt}
             ],
             temperature=0.3,
-            verbosity="high",
         )
         # answer = response.choices[0].message.content
         answer = response.output_text
@@ -173,7 +172,6 @@ async def handle_file_upload(file: UploadFile = File(...), user_prompt: str = Fo
                 {"role": "user", "content": combined_prompt}
             ],
             temperature=0.3,
-            verbosity="high",
         )
         # answer = response.choices[0].message.content
         answer = response.output_text
