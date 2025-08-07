@@ -115,7 +115,7 @@ class PromptRequest(BaseModel):
 async def handle_prompt(request: PromptRequest):
     try:
         response = openai.chat.completions.create(
-            model="gpt-4.1"
+            model="gpt-4.1",
             messages=[
                 {
                     "role": "system",
