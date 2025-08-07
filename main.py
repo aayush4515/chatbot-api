@@ -161,7 +161,8 @@ async def handle_file_upload(file: UploadFile = File(...), user_prompt: str = Fo
 
         # generate response
         response = openai.chat.completions.create(
-            model="chatgpt-4o-latest",
+            #model="chatgpt-4o-latest",
+            model="gpt-5",
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": combined_prompt}
