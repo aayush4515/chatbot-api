@@ -119,7 +119,7 @@ async def handle_prompt(request: PromptRequest):
     try:
         response = client.responses.create(
             model="gpt-5",
-            messages=[
+            input=[
                 {
                     "role": "system",
                     "content": SYSTEM_PROMPT
@@ -167,7 +167,7 @@ async def handle_file_upload(file: UploadFile = File(...), user_prompt: str = Fo
         response = client.responses.create(
             #model="chatgpt-4o-latest",
             model="gpt-4.1",
-            messages=[
+            input=[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": combined_prompt}
             ],
