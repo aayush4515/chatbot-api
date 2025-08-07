@@ -37,7 +37,7 @@ SYSTEM_PROMPT = '''### ROLE AND PURPOSE
                             3. 🔍 Explain the key differences using:
                             - Bullet points
                             - Simple analogies (e.g., “A pointer is like a label on a package”)
-                            - Tables, side-by-side comparisons (if helpful)
+                            - Tables, side-by-side comparisons
                             4. 💡 Always explain the *why* behind syntax and design differences
 
                             ---
