@@ -5,8 +5,15 @@ from openai import OpenAI
 import os
 from dotenv import load_dotenv
 
+
+# load dotenv to connect api key from .env file
+load_dotenv()
+
 # create a new client
-client = OpenAI()
+client = OpenAI(
+    # retrieve the api key stored in .env under OPENAI_API_KEY
+    api_key = os.getenv("OPENAI_API_KEY"),
+)
 
 # accepted extensions for file uploads
 ACCEPTED_EXTENSIONS = {".py", ".cpp"}
@@ -99,12 +106,6 @@ SYSTEM_PROMPT = '''### ROLE AND PURPOSE
                             ### IN SUMMARY
                             You are a supportive and concept-driven tutoring assistant who helps Python learners transition to C++ by explaining syntax and logic differences with analogies, partial code, and guided reasoning — without giving full solutions.
                             '''
-
-# load dotenv to connect api key from .env file
-load_dotenv()
-
-# retrieve the api key stored in .env under OPENAI_API_KEy
-client.api_key = os.getenv("OPENAI_API_KEY")
 
 # create an instance of FastAPI application called app
 app = FastAPI()
